@@ -4,20 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS2 Hungary — Hamarosan...</title>
-    <meta name="description" content="CS2 Hungary — hamarosan. Csatlakozz a Discord szerverünkhöz.">
     <meta name="theme-color" content="#0a0806">
 
     <!-- Favicon / ikonok -->
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico?v=2" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 
     <!-- Open Graph (Discord / Facebook megosztás) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="CS2 Hungary">
     <meta property="og:locale" content="hu_HU">
     <meta property="og:title" content="CS2 Hungary — Hamarosan...">
-    <meta property="og:description" content="A következő generációs CS2 közösségi platform. Csatlakozz a Discord szerverünkhöz.">
     <link rel="canonical" href="https://cs2hungary.hu/">
     <meta property="og:url" content="https://cs2hungary.hu/">
     <meta property="og:image" content="https://cs2hungary.hu/og-banner.gif">
@@ -28,7 +26,6 @@
     <!-- Twitter / X kártya -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CS2 Hungary — Hamarosan...">
-    <meta name="twitter:description" content="Csatlakozz a Discord szerverünkhöz!">
     <meta name="twitter:image" content="https://cs2hungary.hu/Banner.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,7 +57,7 @@
         .scanlines{position:fixed; inset:0; z-index:8; pointer-events:none; opacity:.45;
             background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.35) 2px 3px); mix-blend-mode:multiply;}
         .vignette{position:fixed; inset:0; z-index:7; pointer-events:none;
-            background:radial-gradient(circle at 50% 50%, transparent 42%, rgba(0,0,0,.72) 100%);}
+            background:radial-gradient(ellipse at 50% 50%, transparent 58%, rgba(0,0,0,.6) 100%);}
         .app{position:relative; z-index:5; min-height:100vh; min-height:100svh; display:grid; grid-template-rows:auto 1fr auto; padding:clamp(16px,2.6vw,36px);}
         .mono{font-family:var(--mono)}
         .hud-top{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
@@ -77,7 +74,7 @@
         .frame i:nth-child(4){bottom:0; right:0; border-left:0; border-top:0}
         .title{
             position:relative; margin:0; font-family:var(--display); font-weight:700;
-            font-size:clamp(4.1rem,15vw,10.5rem); line-height:.92; letter-spacing:6px; text-transform:uppercase;
+            font-size:clamp(2.5rem,13.5vw,10.5rem); line-height:.92; letter-spacing:clamp(1px,1.2vw,6px); text-transform:uppercase;
             color:#fff; text-shadow:0 0 36px rgba(240,169,58,.5), 0 16px 46px rgba(0,0,0,.75);
         }
         .title::before, .title::after{
@@ -123,7 +120,13 @@
             64%{opacity:0}
         }
         @media (max-width:520px){
-            .discord{padding:15px 22px}
+            .app{padding:14px}
+            .brand{gap:10px}
+            .brand .name{font-size:1.3rem; letter-spacing:2px}
+            .mark{width:52px}
+            .stage{gap:20px; padding:22px 14px}
+            .discord{padding:14px 18px; font-size:.92rem; gap:10px; white-space:nowrap}
+            .discord svg{width:22px; height:22px}
         }
         @media (prefers-reduced-motion: reduce){
             *{animation:none !important}
@@ -140,7 +143,7 @@
     <div class="app">
         <header class="hud-top">
             <div class="brand">
-                <img class="mark" src="ICON-Fix.webp" alt="CS2 Hungary logó" width="76" height="76">
+                <img class="mark" src="ICON-Fix.webp?v=2" alt="CS2 Hungary logó" width="76" height="76">
                 <span class="name">CS2 HUNGARY</span>
             </div>
         </header>
