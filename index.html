@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 - HAMAROSAN</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@700&display=swap');
+        body {
+            margin: 0; padding: 0;
+            background-color: #0b0f19;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 30px 30px;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; text-align: center; overflow: hidden;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        #loader {
+            position: absolute; color: #f97316; font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase;
+        }
+        .cs2-coming-soon {
+            position: relative; padding: 2rem 4rem; opacity: 0; transform: scale(0.95); transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .cs2-coming-soon.visible { opacity: 1; transform: scale(1); }
+        .cs2-coming-soon::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 300px; height: 100px; background: rgba(249, 115, 22, 0.08); filter: blur(50px); z-index: -1;
+        }
+        h1 {
+            font-family: 'Teko', sans-serif; font-size: clamp(5rem, 15vw, 12rem);
+            margin: 0; color: #f8fafc; letter-spacing: 8px; line-height: 1; text-transform: uppercase;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(249, 115, 22, 0.2);
+            border-bottom: 4px solid #f97316; padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">RENDSZER INDÍTÁSA...</div>
+    <div class="cs2-coming-soon" id="mainContent">
+        <h1>HAMAROSAN</h1>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById("loader");
+            const mainContent = document.getElementById("mainContent");
+            const steps = ["CS2 PROTOKOLL BETÖLTÉSE...", "CSATLAKOZÁS A HÁLÓZATHOZ...", "RENDSZER KÉSZEN"];
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < steps.length) {
+                    loader.textContent = steps[index];
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    loader.style.display = "none";
+                    mainContent.classList.add("visible");
+                }
+            }, 400);
+        });
+    </script>
+</body>
+</html>
