@@ -3,59 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 - HAMAROSAN</title>
+    <title>CS2 Hungary — Hamarosan...</title>
+    <meta name="description" content="CS2 Hungary — hamarosan. Csatlakozz a Discord szerverünkhöz.">
+    <meta name="theme-color" content="#0a0806">
+
+    <!-- Favicon / ikonok -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Open Graph (Discord / Facebook megosztás) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CS2 Hungary">
+    <meta property="og:locale" content="hu_HU">
+    <meta property="og:title" content="CS2 Hungary — Hamarosan...">
+    <meta property="og:description" content="A következő generációs CS2 közösségi platform. Csatlakozz a Discord szerverünkhöz.">
+    <link rel="canonical" href="https://cs2hungary.hu/">
+    <meta property="og:url" content="https://cs2hungary.hu/">
+    <meta property="og:image" content="https://cs2hungary.hu/og-banner.gif">
+    <meta property="og:image:type" content="image/gif">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="225">
+
+    <!-- Twitter / X kártya -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CS2 Hungary — Hamarosan...">
+    <meta name="twitter:description" content="Csatlakozz a Discord szerverünkhöz!">
+    <meta name="twitter:image" content="https://cs2hungary.hu/Banner.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@700&display=swap');
-        body {
-            margin: 0; padding: 0;
-            background-color: #0b0f19;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 30px 30px;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; text-align: center; overflow: hidden;
-            font-family: 'Share Tech Mono', monospace;
+        :root{
+            --bg:#0a0806; --gold:#f0a93a; --gold-2:#ffc65c; --line:rgba(240,169,58,.38);
+            --red:#d63b3b; --green:#3f9155;
+            --text:#f3ece0; --muted:#9c907c;
+            --mono:'Share Tech Mono',monospace; --ui:'Rajdhani',sans-serif; --display:'Teko',sans-serif;
         }
-        #loader {
-            position: absolute; color: #f97316; font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase;
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; overflow-x:hidden; overflow-y:auto; color:var(--text);
+            background:
+                radial-gradient(1200px 700px at 50% -10%, rgba(240,169,58,.16), transparent 60%),
+                radial-gradient(900px 600px at 88% 112%, rgba(214,59,59,.09), transparent 60%),
+                var(--bg);
+            font-family:var(--ui); -webkit-font-smoothing:antialiased;
         }
-        .cs2-coming-soon {
-            position: relative; padding: 2rem 4rem; opacity: 0; transform: scale(0.95); transition: opacity 0.8s ease, transform 0.8s ease;
+        .grid{position:fixed; inset:0; z-index:1; pointer-events:none;
+            background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size:46px 46px;
+            -webkit-mask-image:radial-gradient(circle at 50% 44%, #000 38%, transparent 78%);
+            mask-image:radial-gradient(circle at 50% 44%, #000 38%, transparent 78%);}
+        #bg{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0}
+        .scanlines{position:fixed; inset:0; z-index:8; pointer-events:none; opacity:.45;
+            background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.35) 2px 3px); mix-blend-mode:multiply;}
+        .vignette{position:fixed; inset:0; z-index:7; pointer-events:none;
+            background:radial-gradient(circle at 50% 50%, transparent 42%, rgba(0,0,0,.72) 100%);}
+        .app{position:relative; z-index:5; min-height:100vh; min-height:100svh; display:grid; grid-template-rows:auto 1fr auto; padding:clamp(16px,2.6vw,36px);}
+        .mono{font-family:var(--mono)}
+        .hud-top{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+        .brand{display:flex; align-items:center; gap:13px}
+        .mark{width:clamp(56px,9vw,76px); height:auto; display:block; filter:drop-shadow(0 0 16px rgba(240,169,58,.55))}
+        .brand .name{font-family:var(--display); font-weight:700; font-size:1.6rem; letter-spacing:3px; line-height:1; color:#fff}
+        /* STAGE */
+        .stage{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:clamp(18px,3vh,34px); padding:clamp(26px,5vw,64px)}
+        .frame{position:absolute; inset:0; pointer-events:none}
+        .frame i{position:absolute; width:30px; height:30px; border:2px solid var(--line)}
+        .frame i:nth-child(1){top:0; left:0; border-right:0; border-bottom:0}
+        .frame i:nth-child(2){top:0; right:0; border-left:0; border-bottom:0}
+        .frame i:nth-child(3){bottom:0; left:0; border-right:0; border-top:0}
+        .frame i:nth-child(4){bottom:0; right:0; border-left:0; border-top:0}
+        .title{
+            position:relative; margin:0; font-family:var(--display); font-weight:700;
+            font-size:clamp(4.1rem,15vw,10.5rem); line-height:.92; letter-spacing:6px; text-transform:uppercase;
+            color:#fff; text-shadow:0 0 36px rgba(240,169,58,.5), 0 16px 46px rgba(0,0,0,.75);
         }
-        .cs2-coming-soon.visible { opacity: 1; transform: scale(1); }
-        .cs2-coming-soon::before {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 300px; height: 100px; background: rgba(249, 115, 22, 0.08); filter: blur(50px); z-index: -1;
+        .title::before, .title::after{
+            content:attr(data-text); position:absolute; top:0; left:0; width:100%;
+            pointer-events:none; opacity:0;
         }
-        h1 {
-            font-family: 'Teko', sans-serif; font-size: clamp(5rem, 15vw, 12rem);
-            margin: 0; color: #f8fafc; letter-spacing: 8px; line-height: 1; text-transform: uppercase;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(249, 115, 22, 0.2);
-            border-bottom: 4px solid #f97316; padding-bottom: 0.5rem;
+        .title::before{color:var(--gold); animation:glitchA 3.4s infinite}
+        .title::after{color:var(--red); animation:glitchB 2.8s infinite}
+        /* DISCORD BUTTON */
+        .discord{
+            position:relative; display:inline-flex; align-items:center; gap:13px; margin-top:4px; padding:17px 32px;
+            text-decoration:none; color:#1a1206; font-family:var(--ui); font-weight:700; font-size:clamp(1rem,2.4vw,1.2rem);
+            letter-spacing:.05em; text-transform:uppercase;
+            background:linear-gradient(180deg,var(--gold-2),var(--gold));
+            clip-path:polygon(15px 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,0 100%,0 15px);
+            box-shadow:0 14px 40px rgba(240,169,58,.35);
+            transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .discord svg{width:26px; height:26px; fill:#1a1206; flex:none}
+        .discord:hover{transform:translateY(-3px); filter:brightness(1.06); box-shadow:0 20px 54px rgba(240,169,58,.5)}
+        .discord:active{transform:translateY(0)}
+        .discord::after{content:''; position:absolute; inset:0; clip-path:inherit; box-shadow:inset 0 0 0 1px rgba(255,255,255,.18); pointer-events:none}
+        /* HUD BOTTOM */
+        .hud-bottom{display:flex; flex-direction:column; gap:11px}
+        .bar{position:relative; height:3px; width:100%; background:rgba(255,255,255,.06); overflow:hidden}
+        .bar span{position:absolute; top:0; left:0; height:100%; width:34%; background:linear-gradient(90deg,transparent,var(--gold),transparent); animation:scan 3.4s linear infinite}
+        /* ANIMATIONS */
+        @keyframes scan{0%{transform:translateX(-130%)}100%{transform:translateX(400%)}}
+        @keyframes glitchA{
+            0%,100%{opacity:0; transform:translate(0,0); clip-path:inset(0 0 0 0)}
+            3%{opacity:.85; transform:translate(-3px,-2px); clip-path:inset(0 0 62% 0)}
+            7%{opacity:.85; transform:translate(3px,1px); clip-path:inset(56% 0 0 0)}
+            11%,54%{opacity:0}
+            57%{opacity:.7; transform:translate(2px,-1px); clip-path:inset(22% 0 42% 0)}
+            61%{opacity:0}
+        }
+        @keyframes glitchB{
+            0%,100%{opacity:0; transform:translate(0,0); clip-path:inset(0 0 0 0)}
+            2%{opacity:.6; transform:translate(3px,2px); clip-path:inset(48% 0 0 0)}
+            6%{opacity:.6; transform:translate(-2px,-1px); clip-path:inset(0 0 55% 0)}
+            10%,57%{opacity:0}
+            60%{opacity:.5; transform:translate(-3px,1px); clip-path:inset(30% 0 30% 0)}
+            64%{opacity:0}
+        }
+        @media (max-width:520px){
+            .discord{padding:15px 22px}
+        }
+        @media (prefers-reduced-motion: reduce){
+            *{animation:none !important}
+            .title::before, .title::after{display:none}
         }
     </style>
 </head>
 <body>
-    <div id="loader">RENDSZER INDÍTÁSA...</div>
-    <div class="cs2-coming-soon" id="mainContent">
-        <h1>HAMAROSAN</h1>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="grid" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <div class="app">
+        <header class="hud-top">
+            <div class="brand">
+                <img class="mark" src="ICON-Fix.webp" alt="CS2 Hungary logó" width="76" height="76">
+                <span class="name">CS2 HUNGARY</span>
+            </div>
+        </header>
+
+        <main class="stage">
+            <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <h1 class="title" data-text="HAMAROSAN...">HAMAROSAN...</h1>
+            <a class="discord" href="https://discord.gg/5sgRbNVNqu" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 127.14 96.36" aria-hidden="true"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+                Csatlakozás a Discordra
+            </a>
+        </main>
+
+        <footer class="hud-bottom">
+            <div class="bar" aria-hidden="true"><span></span></div>
+        </footer>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const loader = document.getElementById("loader");
-            const mainContent = document.getElementById("mainContent");
-            const steps = ["CS2 PROTOKOLL BETÖLTÉSE...", "CSATLAKOZÁS A HÁLÓZATHOZ...", "RENDSZER KÉSZEN"];
-            let index = 0;
-            const interval = setInterval(() => {
-                if (index < steps.length) {
-                    loader.textContent = steps[index];
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    loader.style.display = "none";
-                    mainContent.classList.add("visible");
+        /* ---- Háttér: részecske-hálózat ---- */
+        (function () {
+            const c = document.getElementById('bg');
+            const ctx = c.getContext('2d');
+            let w = 0, h = 0, pts = [];
+            const LINK = 132;
+
+            function build() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = c.clientWidth; h = c.clientHeight;
+                c.width = w * dpr; c.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                const count = Math.round(Math.min(95, Math.max(26, (w * h) / 20000)));
+                pts = Array.from({ length: count }, () => ({
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.32, vy: (Math.random() - 0.5) * 0.32,
+                    r: Math.random() * 1.5 + 0.6
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < pts.length; i++) {
+                    const p = pts[i];
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+                        if (d2 < LINK * LINK) {
+                            const a = (1 - Math.sqrt(d2) / LINK) * 0.17;
+                            ctx.strokeStyle = 'rgba(240,169,58,' + a.toFixed(3) + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+                        }
+                    }
                 }
-            }, 400);
-        });
+                for (const p of pts) {
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(240,169,58,.62)';
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', build);
+            build(); draw();
+        })();
     </script>
 </body>
 </html>
